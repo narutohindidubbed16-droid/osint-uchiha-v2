@@ -60,17 +60,13 @@ logger.setLevel(logging.INFO)
 # Utilities
 # ---------------------------
 def fix_channel(ch):
-    """Normalize a channel env var to plain username (no leading @ or https)."""
     if not ch:
         return None
-    ch = str(ch).strip()
-    ch = ch.replace("https://t.me/", "").replace("http://t.me/", "")
-    if ch.startswith("@"):
-        ch = ch[1:]
+    ch = str(ch).replace("https://t.me/", "").replace("@", "")
     return ch
 
-MAIN_CHANNEL = fix_channel(MAIN_CHANNEL)
-BACK_CHANNEL = fix_channel(BACKUP_CHANNEL)
+MAIN_CH = fix_channel(MAIN_CHANNEL)
+BACK_CH = fix_channel(BACKUP_CHANNEL)
 
 def build_api_url(api_template: str, query: str) -> str:
     """
