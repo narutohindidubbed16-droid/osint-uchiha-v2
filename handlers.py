@@ -429,7 +429,67 @@ async def process_text(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if "mode" in ctx.user_data:
         del ctx.user_data["mode"]
 
+# ---------------------------
+# DIAGNOSTIC COMMAND
+# ---------------------------
+from config import MAIN_CHANNEL, BACKUP_CHANNEL
+from handlers import MAIN_CH, BACK_CH  # if same file ignore this line
 
+from telegram.constants import ChatMemberStatus
+
+async def diag(update, ctx):
+    user = update.effective_user
+    chat_id = update.effective_chat.id
+
+    MAIN = MAIN_CH
+    BACK = BACK_CH
+
+    text = "🔍 *OSINT UCHIHA — DIAGNOSTIC MODE*\n\n"
+
+    text += f"📌 MAIN_CH: `{MAIN}`\n"
+    text += f"📌 BACK_CH: `{BACK}`\n\n"
+
+    # ---- TEST 1: Resolve Channel Info ----
+    try:
+        main_info = await ctx.bot.get_chat(MAIN)
+        text += f"🟢 MAIN RESOLVED → ID: `{main_info.id}`\n"
+    except Exception as e:
+        text += f"🔴 MAIN FAILED → `{e}`\n"
+
+    try:
+        back_info = await ctx.bot.get_chat(BACK)
+        text += f"🟢 BACKUP RESOLVED → ID: `{back_info.id}`\n\n"
+    except Exception as e:
+        text += f"🔴 BACKUP FAILED → `{e}`\n\n"
+
+    # ---- TEST 2: Bot admin in MAIN ----
+    try:
+        bot_info_main = await ctx.bot.get_chat_member(MAIN, ctx.bot.id)
+        text += f"🤖 Bot in MAIN: `{bot_info_main.status}`\n"
+    except Exception as e:
+        text += f"🔴 Bot MAIN check: `{e}`\n"
+
+    # ---- TEST 3: Bot admin in BACKUP ----
+    try:
+        bot_info_back = await ctx.bot.get_chat_member(BACK, ctx.bot.id)
+        text += f"🤖 Bot in BACKUP: `{bot_info_back.status}`\n\n"
+    except Exception as e:
+        text += f"🔴 Bot BACKUP check: `{e}`\n\n"
+
+    # ---- TEST 4: YOUR membership ----
+    try:
+        u1 = await ctx.bot.get_chat_member(MAIN, user.id)
+        text += f"👤 You in MAIN: `{u1.status}`\n"
+    except Exception as e:
+        text += f"🔴 User MAIN check: `{e}`\n"
+
+    try:
+        u2 = await ctx.bot.get_chat_member(BACK, user.id)
+        text += f"👤 You in BACKUP: `{u2.status}`\n"
+    except Exception as e:
+        text += f"🔴 User BACKUP check: `{e}`\n"
+
+    await ctx.bot.send_message(chat_id, text, parse_mode="Markdown")
 # ---------------------------
 # ADMIN COMMANDS (helpers)
 # ---------------------------
