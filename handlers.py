@@ -233,9 +233,9 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 if data == "verify_join":
     return await verify_join(update, ctx)
 
-# BUY CREDITS BUTTON
-if data == "buy_credits":
-    return await send_buy_credits_post(user_id, ctx)
+# BUY CREDITS BUT
+if data == "verify_join":
+    return await verify_join(update, ctx)
 
 # Lookup options
 if data == "lookup_options":
