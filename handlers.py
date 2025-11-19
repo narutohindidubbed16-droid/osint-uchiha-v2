@@ -252,8 +252,10 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         ref_link = f"https://t.me/{fix_channel(MAIN_CHANNEL)}?start={user_id}"
         return await ctx.bot.send_message(user_id, "Share your referral link to earn +1 credit per sign-up:", reply_markup=referral_menu_kb(ref_link))
 
-    if data == "buy_credits":
+    # Buy credits quick button
+if data == "buy_credits":
     return await send_buy_credits_post(user_id, ctx)
+    
     if data == "support":
         return await ctx.bot.send_message(user_id, "🛠 Support: @AbdulBotZ", reply_markup=quick_back_kb(), parse_mode="Markdown")
 
