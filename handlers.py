@@ -217,46 +217,46 @@ async def verify_join(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 # BUTTONS / Callback handler
 # ---------------------------
 async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-    """
-    Central callback query handler for buttons from keyboards.py
-    Important: We respond with new messages (not editing) so each user action creates personal message.
-    """
+async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     q = update.callback_query
     data = q.data or ""
     user_id = q.from_user.id
 
-    # Always answer callback to remove "loading" state
-    # For some actions we may want to show popup — handle inside functions
+    # Always answer callback to remove "loading"
     await q.answer()
 
-    # verify join popup handled separately
-if data == "verify_join":
-    return await verify_join(update, ctx)
+    # verify join
+    if data == "verify_join":
+        return await verify_join(update, ctx)
 
-# BUY CREDITS BUT
-if data == "verify_join":
-    return await verify_join(update, ctx)
+    # buy credits
+    if data == "buy_credits":
+        return await send_buy_credits_post(user_id, ctx)
 
-# Lookup options
-if data == "lookup_options":
-    return await ctx.bot.send_message(
-        user_id,
-        "🔍 Select Lookup Type:",
-        reply_markup=lookup_options_kb(),
-        parse_mode="Markdown"
-    )
+    # Lookup options
+    if data == "lookup_options":
+        return await ctx.bot.send_message(
+            user_id,
+            "🔍 Select Lookup Type:",
+            reply_markup=lookup_options_kb(),
+            parse_mode="Markdown"
+        )
 
-    # Main menu actions: my_balance, referral_menu, buy_credits etc.
     if data == "my_balance":
         credits = get_user_credits(user_id)
-        text = f"💳 Your balance: *{credits}* credits\n\nUse *Buy Credits* to top up."
-        return await ctx.bot.send_message(user_id, text, parse_mode="Markdown", reply_markup=balance_menu_kb())
+        txt = f"💳 Your balance: *{credits}* credits"
+        return await ctx.bot.send_message(
+            user_id, txt, parse_mode="Markdown",
+            reply_markup=balance_menu_kb()
+        )
 
     if data == "referral_menu":
-        # build referral link
         ref_link = f"https://t.me/{fix_channel(MAIN_CHANNEL)}?start={user_id}"
-        return await ctx.bot.send_message(user_id, "Share your referral link to earn +1 credit per sign-up:", reply_markup=referral_menu_kb(ref_link))
-
+        return await ctx.bot.send_message(
+            user_id,
+            "Share your referral link:",
+            reply_markup=referral_menu_kb(ref_link)
+        )
     
     if data == "support":
         return await ctx.bot.send_message(user_id, "🛠 Support: @AbdulBotZ", reply_markup=quick_back_kb(), parse_mode="Markdown")
