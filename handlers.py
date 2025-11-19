@@ -63,21 +63,22 @@ def fix_channel(ch):
     ch = ch.replace("https://t.me/", "").replace("@", "")
     return ch
 
-MAIN_CH = fix_channel(MAIN_CHANNEL)
-BACK_CH = fix_channel(BACKUP_CHANNEL)
+MAIN_CH = MAIN_CHANNEL
+BACK_CH = BACKUP_CHANNEL
 
 # REAL JOIN CHECK
+
 async def is_joined_all(bot, user_id: int) -> bool:
-    ok_states = ("member", "administrator", "creator")
-
     try:
-        main = await bot.get_chat_member(MAIN_CH, user_id)
-        back = await bot.get_chat_member(BACK_CH, user_id)
+        # ALWAYS use @username (never strip it)
+        main = await bot.get_chat_member(f"@{MAIN_CH}", user_id)
+        back = await bot.get_chat_member(f"@{BACK_CH}", user_id)
 
-        return (main.status in ok_states) and (back.status in ok_states)
+        return main.status in ("member", "administrator", "creator") and \
+               back.status in ("member", "administrator", "creator")
 
     except Exception as e:
-        logger.warning(f"[JOIN CHECK FAIL] Channel error: {e}")
+        logger.warning(f"[JOIN CHECK FAIL] {e}")
         return False
         
 def build_api_url(api_template: str, query: str) -> str:
@@ -422,7 +423,8 @@ async def diag(update, ctx):
 
     # ---- TEST 1: Resolve Channel Info ----
     try:
-        main_info = await ctx.bot.get_chat(MAIN)
+        
+        main_info = await ctx.bot.get_chat(f"{MAIN}")
         text += f"🟢 MAIN RESOLVED → ID: `{main_info.id}`\n"
     except Exception as e:
         text += f"🔴 MAIN FAILED → `{e}`\n"
