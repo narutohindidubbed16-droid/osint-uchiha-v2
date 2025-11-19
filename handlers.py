@@ -189,32 +189,28 @@ async def start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 # Verify join (callback)
 # ---------------------------
 async def verify_join(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-    """
-    Callback when user taps "I HAVE JOINED ALL CHANNELS".
-    Uses q.answer with show_alert to give popup feedback.
-    If verified — delete the subscription message and send welcome.
-    """
     q = update.callback_query
     user_id = q.from_user.id
 
-    # Do not forget to answer callback quickly (to remove spinner)
-    # We'll answer with alert messages depending on verification
-    joined = await is_joined_all(ctx.bot, user_id)
-    if not joined:
-        # show_alert True -> popup (modal)
-        await q.answer("❌ You must join ALL required channels first!", show_alert=True)
-        return
+    # Check join
+    ok = await is_joined_all(ctx.bot, user_id)
 
-    await q.answer("✅ Verified successfully!", show_alert=True)
+    if not ok:
+        # Still not joined
+        await q.answer("❌ You haven't joined all channels!", show_alert=True)
+        return await ctx.bot.send_message(
+            user_id,
+            "❌ You still haven't joined all required channels.\nPlease join them and try again.",
+            reply_markup=join_channels_kb()
+        )
 
-    # delete old message (subscription message)
-    try:
-        await q.message.delete()
-    except Exception:
-        pass
-
-    # send the full welcome
-    await show_welcome(update, ctx)
+    # Verified
+    await q.answer("✅ Verified!", show_alert=True)
+    return await ctx.bot.send_message(
+        user_id,
+        "🎉 You are verified!\nWelcome to OSINT Uchiha.",
+        reply_markup=main_menu_kb()
+    )
 
 
 # ---------------------------
