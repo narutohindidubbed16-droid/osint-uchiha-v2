@@ -236,6 +236,9 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     # verify join popup handled separately
     if data == "verify_join":
         return await verify_join(update, ctx)
+        
+    if data == "buy_credits":
+    return await send_buy_credits_post(user_id, ctx)
 
     # Lookup options
     if data == "lookup_options":
@@ -289,9 +292,7 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if data.startswith("buy_"):
         # we keep payments manual — send instruction to pay & confirm
         return await ctx.bot.send_message(user_id, "To buy credits: send payment proof to @LoserNagi and use the correct package button.", reply_markup=buy_credits_kb())
-# Buy Credits (open payment panel)
-if data == "buy_credits":
-    return await send_buy_credits_post(user_id, ctx)
+        
 BUY_QR_IMAGE = "https://ibb.co/JFCG2ms9"   # <-- yaha apna QR image link daalna
 
 UPI_ID = "losernagi@upi"  # <-- apna UPI daalna
