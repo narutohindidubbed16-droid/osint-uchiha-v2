@@ -70,9 +70,8 @@ BACK_CH = BACKUP_CHANNEL
 
 async def is_joined_all(bot, user_id: int) -> bool:
     try:
-        # ALWAYS use @username (never strip it)
-        main = await bot.get_chat_member(f"@{MAIN_CH}", user_id)
-        back = await bot.get_chat_member(f"@{BACK_CH}", user_id)
+        main = await bot.get_chat_member(MAIN_CH, user_id)
+        back = await bot.get_chat_member(BACK_CH, user_id)
 
         return main.status in ("member", "administrator", "creator") and \
                back.status in ("member", "administrator", "creator")
