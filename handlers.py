@@ -70,7 +70,7 @@ def fix_channel(ch):
     return ch
 
 MAIN_CH = fix_channel(MAIN_CHANNEL)
-BACK_CH = fix_channel(BACK_CHANNEL)
+BACK_CH = fix_channel(BACKUP_CHANNEL)
 
 def build_api_url(api_template: str, query: str) -> str:
     """
