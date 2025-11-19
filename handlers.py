@@ -62,11 +62,17 @@ logger.setLevel(logging.INFO)
 def fix_channel(ch):
     if not ch:
         return None
-    ch = str(ch).replace("https://t.me/", "").replace("@", "")
-    return ch
+    ch = str(ch).strip()
 
-MAIN_CH = fix_channel(MAIN_CHANNEL)
-BACK_CH = fix_channel(BACKUP_CHANNEL)
+    # remove URL part ONLY IF it starts with t.me link
+    if ch.startswith("https://t.me/") or ch.startswith("http://t.me/"):
+        ch = ch.split("/")[-1]  # keep last part only
+
+    # Remove @ ONLY IF present
+    if ch.startswith("@"):
+        ch = ch[1:]
+
+    return ch
 
 def build_api_url(api_template: str, query: str) -> str:
     """
