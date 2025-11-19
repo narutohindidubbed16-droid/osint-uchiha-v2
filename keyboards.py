@@ -17,21 +17,20 @@ def join_channels_kb():
 # ===============================================================
 # 🏠 MAIN MENU (Premium OSINT Panel)
 # ===============================================================
-def main_menu_kb():
-    return InlineKeyboardMarkup([
-        [
-            InlineKeyboardButton("🔎 LOOKUPS", callback_data="lookup_options"),
-            InlineKeyboardButton("💳 BALANCE", callback_data="my_balance")
-        ],
-        [
-            InlineKeyboardButton("👥 EARN CREDITS", callback_data="referral_menu"),
-            InlineKeyboardButton("💰 BUY CREDITS", callback_data="buy_credits")
-        ],
-        [
-            InlineKeyboardButton("📚 HELP", callback_data="help_guide"),
-            InlineKeyboardButton("🛠 SUPPORT", callback_data="support")
-        ]
-    ])
+from config import MAIN_CHANNEL, BACKUP_CHANNEL, PRIVATE_CHANNEL
+
+def join_channels_kb():
+    kb = [
+        [InlineKeyboardButton("📢 JOIN MAIN", url=f"https://t.me/{MAIN_CHANNEL.replace('@','')}")],
+        [InlineKeyboardButton("📢 JOIN BACKUP", url=f"https://t.me/{BACKUP_CHANNEL.replace('@','')}")],
+    ]
+
+    if PRIVATE_CHANNEL:
+        kb.append([InlineKeyboardButton("📢 JOIN PRIVATE", url=f"https://t.me/{PRIVATE_CHANNEL.replace('@','')}")])
+
+    kb.append([InlineKeyboardButton("✅ I HAVE JOINED ALL CHANNELS", callback_data="verify_join")])
+
+    return InlineKeyboardMarkup(kb)
 
 
 # ===============================================================
