@@ -150,6 +150,11 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     data = q.data
     await q.answer()
 
+    # 🔥 Verify Join Button Fix
+    if data == "verify_join":
+        await verify_join(update, ctx)
+        return
+
     if data == "lookup_options":
         await ctx.bot.send_message(
             chat_id=q.from_user.id,
