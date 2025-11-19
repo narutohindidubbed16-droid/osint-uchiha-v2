@@ -129,9 +129,11 @@ WELCOME_TEXT = (
 )
 
 
+WELCOME_IMAGE = "https://i.ibb.co/xGGxX99/uchiha-welcome.jpg"
+
 async def show_welcome(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-    """Send the full welcome screen with image + main menu."""
     chat_id = update.effective_chat.id
+
     try:
         await ctx.bot.send_photo(
             chat_id=chat_id,
@@ -140,9 +142,7 @@ async def show_welcome(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             reply_markup=main_menu_kb(),
             parse_mode="Markdown"
         )
-    except Exception as e:
-        logger.warning(f"[show_welcome] failed to send image: {e}")
-        # fallback to text
+    except:
         await ctx.bot.send_message(
             chat_id=chat_id,
             text=WELCOME_TEXT,
@@ -253,8 +253,7 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         return await ctx.bot.send_message(user_id, "Share your referral link to earn +1 credit per sign-up:", reply_markup=referral_menu_kb(ref_link))
 
     if data == "buy_credits":
-        return await ctx.bot.send_message(user_id, "Buy credits panel:", reply_markup=buy_credits_kb())
-
+    return await send_buy_credits_post(user_id, ctx)
     if data == "support":
         return await ctx.bot.send_message(user_id, "🛠 Support: @AbdulBotZ", reply_markup=quick_back_kb(), parse_mode="Markdown")
 
@@ -292,7 +291,39 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         # we keep payments manual — send instruction to pay & confirm
         return await ctx.bot.send_message(user_id, "To buy credits: send payment proof to @LoserNagi and use the correct package button.", reply_markup=buy_credits_kb())
 
+BUY_QR_IMAGE = "https://ibb.co/JFCG2ms9"   # <-- yaha apna QR image link daalna
 
+UPI_ID = "losernagi@upi"  # <-- apna UPI daalna
+
+async def send_buy_credits_post(user_id, ctx):
+    text = (
+        "💳 *PREMIUM CREDIT PURCHASE PANEL*\n\n"
+        "📌 Below is the payment QR. Scan & pay.\n\n"
+        "⚠ If QR fails, use UPI ID below:\n"
+        f"➡ *{UPI_ID}*\n\n"
+        "📄 After payment, send screenshot to: @LoserNagi\n\n"
+        "💠 Available Packs:\n"
+        "• ₹49 → 25 Credits\n"
+        "• ₹99 → 60 Credits\n"
+        "• ₹199 → 150 Credits\n\n"
+        "⛔ *No refund policy* after credits delivered.\n"
+    )
+
+    try:
+        await ctx.bot.send_photo(
+            chat_id=user_id,
+            photo=BUY_QR_IMAGE,
+            caption=text,
+            parse_mode="Markdown",
+            reply_markup=buy_credits_kb()
+        )
+    except:
+        await ctx.bot.send_message(
+            chat_id=user_id,
+            text=text,
+            reply_markup=buy_credits_kb(),
+            parse_mode="Markdown"
+        )
 # ---------------------------
 # Process user text (lookup)
 # ---------------------------
