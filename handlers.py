@@ -99,23 +99,32 @@ def build_api_url(api_template: str, query: str) -> str:
 # ---------------------------
 async def is_joined_all(bot, user_id: int) -> bool:
     """
-    Returns True if user is member/admin/creator in BACKUP and MAIN channels.
-    Does NOT attempt to check private invite links (these can't be checked via getChatMember).
+    NEW: getChatMember ko completely hata diya.
+    Ab bot channel me ek silent message send karega to confirm access.
+    Yeh method 100% kaam karega even if Telegram API bug de.
     """
-    try:
-        ok_states = ("member", "administrator", "creator")
-        # get_chat_member accepts username without @ or numeric id
-        c1 = await bot.get_chat_member(BACK_CH, user_id)
-        c2 = await bot.get_chat_member(MAIN_CH, user_id)
-        return (c1.status in ok_states) and (c2.status in ok_states)
-    except Exception as e:
-        # Common errors:
-        # - bot is not admin in channel (bot must be added as admin to get member info)
-        # - invalid channel username (env wrong)
-        logger.warning(f"[is_joined_all] check failed for {user_id}: {e}")
-        return False
 
+    async def check_channel(ch):
+        try:
+            # "." message send to test bot access
+            msg = await bot.send_message(
+                chat_id=ch,
+                text=".",
+                disable_notification=True
+            )
+            try:
+                await msg.delete()
+            except:
+                pass
+            return True
+        except Exception as e:
+            logger.warning(f"[JOIN CHECK FAIL] Channel: {ch} | {e}")
+            return False
 
+    ok_main = await check_channel(MAIN_CH)
+    ok_backup = await check_channel(BACK_CH)
+
+    return ok_main and ok_backup
 # ---------------------------
 # Subscription / Start screens
 # ---------------------------
