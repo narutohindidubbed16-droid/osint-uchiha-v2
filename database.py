@@ -32,7 +32,8 @@ def create_user(user_id, username, name):
             "username": username,  
             "name": name,  
             "credits": START_CREDITS,  
-            "referrals": []  
+            "referrals": [],          # referral users list
+            "paid_credits": 0         # user bought how many credits
         }  
         save_db(db)  
         return True  
@@ -57,20 +58,9 @@ def decrease_credit(user_id):
         save_db(db)
 
 # ------------------------------
-# Add Referral
+# Increase Credit (Normal)
 # ------------------------------
-def add_referral(referrer_id, user_id):
-    db = load_db()
-    if str(referrer_id) in db:
-        if user_id not in db[str(referrer_id)]["referrals"]:
-            db[str(referrer_id)]["referrals"].append(user_id)
-            db[str(referrer_id)]["credits"] += 1
-            save_db(db)
-
-# ------------------------------
-# Admin: Add Credits
-# ------------------------------
-def admin_add_credits(user_id, amount):
+def add_credits(user_id, amount):
     db = load_db()
     if str(user_id) in db:
         db[str(user_id)]["credits"] += amount
@@ -79,17 +69,41 @@ def admin_add_credits(user_id, amount):
     return False
 
 # ------------------------------
-# Admin: Remove Credits
+# Add Referral
 # ------------------------------
-def admin_remove_credits(user_id, amount):
+def add_referral(referrer_id, user_id):
+    db = load_db()
+    if str(referrer_id) in db:
+        if user_id not in db[str(referrer_id)]["referrals"]:
+            db[str(referrer_id)]["referrals"].append(user_id)
+            db[str(referrer_id)]["credits"] += 1  # referral = +1 credit
+            save_db(db)
+
+# ------------------------------
+# Get Referral Count
+# ------------------------------
+def get_referral_count(user_id):
+    db = load_db()
+    return len(db.get(str(user_id), {}).get("referrals", []))
+
+# ------------------------------
+# Add Paid Credits
+# ------------------------------
+def add_paid_credits(user_id, amount):
     db = load_db()
     if str(user_id) in db:
-        db[str(user_id)]["credits"] -= amount
-        if db[str(user_id)]["credits"] < 0:
-            db[str(user_id)]["credits"] = 0
+        db[str[user_id)]["credits"] += amount
+        db[str[user_id)]["paid_credits"] += amount
         save_db(db)
         return True
     return False
+
+# ------------------------------
+# Get User Data Full
+# ------------------------------
+def get_user(user_id):
+    db = load_db()
+    return db.get(str(user_id), None)
 
 # ------------------------------
 # Admin: List all users
@@ -97,4 +111,3 @@ def admin_remove_credits(user_id, amount):
 def get_all_users():
     db = load_db()
     return db
-  
