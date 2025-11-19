@@ -217,7 +217,6 @@ async def verify_join(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 # BUTTONS / Callback handler
 # ---------------------------
 async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     q = update.callback_query
     data = q.data or ""
     user_id = q.from_user.id
