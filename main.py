@@ -73,6 +73,7 @@ async def run_bot():
     # -----------------------------
     # COMMAND HANDLERS
     # -----------------------------
+   app.add_handler(CommandHandler("diag", diag))
     app.add_handler(CommandHandler("start", start))
 
     # ADMIN COMMANDS
