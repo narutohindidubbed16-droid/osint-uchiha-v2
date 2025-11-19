@@ -397,8 +397,7 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     # BUY PACK BUTTONS (buy_25, buy_60, buy_150)
     # --------------------------
     if data.startswith("buy_"):
-        return await send_buy_credits_post(user_id, ctx) "To buy credits: send payment proof to @LoserNagi and use the correct package button.", reply_markup=buy_credits_kb())
-        
+        return await send_buy_credits_post(user_id, ctx)         
 BUY_QR_IMAGE = "https://ibb.co/JFCG2ms9"   # <-- yaha apna QR image link daalna
 
 UPI_ID = "losernagi@upi"  # <-- apna UPI daalna
