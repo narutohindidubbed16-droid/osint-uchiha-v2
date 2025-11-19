@@ -17,7 +17,21 @@ def join_channels_kb():
     kb.append([InlineKeyboardButton("✅ I HAVE JOINED ALL CHANNELS", callback_data="verify_join")])
 
     return InlineKeyboardMarkup(kb)
-
+# ===============================================================
+# 🏠 MAIN MENU BUTTONS
+# ===============================================================
+def main_menu_kb():
+    return InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton("🔍 START LOOKUP", callback_data="lookup_options"),
+            InlineKeyboardButton("💳 MY BALANCE", callback_data="my_balance")
+        ],
+        [
+            InlineKeyboardButton("👥 REFERRAL", callback_data="referral_menu"),
+            InlineKeyboardButton("💰 BUY CREDITS", callback_data="buy_credits")
+        ],
+        [InlineKeyboardButton("📘 HELP GUIDE", callback_data="help_guide")]
+    ])
 
 # ===============================================================
 # 👥 REFERRAL MENU
