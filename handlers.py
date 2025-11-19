@@ -405,7 +405,6 @@ async def process_text(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 # DIAGNOSTIC COMMAND
 # ---------------------------
 from config import MAIN_CHANNEL, BACKUP_CHANNEL
-from handlers import MAIN_CH, BACK_CH  # if same file ignore this line
 
 from telegram.constants import ChatMemberStatus
 
