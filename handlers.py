@@ -57,26 +57,34 @@ logger.setLevel(logging.INFO)
 
 
 # ---------------------------
-# Utilities
+# FIX & NORMALIZE CHANNELS
 # ---------------------------
 def fix_channel(ch):
     if not ch:
         return None
     ch = str(ch).strip()
-
-    # remove URL part ONLY IF it starts with t.me link
-    if ch.startswith("https://t.me/") or ch.startswith("http://t.me/"):
-        ch = ch.split("/")[-1]  # keep last part only
-
-    # Remove @ ONLY IF present
-    if ch.startswith("@"):
-        ch = ch[1:]
-
+    ch = ch.replace("https://t.me/", "").replace("@", "")
     return ch
-# channel fix
+
 MAIN_CH = fix_channel(MAIN_CHANNEL)
 BACK_CH = fix_channel(BACKUP_CHANNEL)
 
+
+# ---------------------------
+# REAL JOIN CHECK (WORKING)
+# ---------------------------
+:
+    ok_states = ("member", "administrator", "creator")
+
+    try:
+        main = await bot.get_chat_member(MAIN_CH, user_id)
+        back = await bot.get_chat_member(BACK_CH, user_id)
+
+        return (main.status in ok_states) and (back.status in ok_states)
+
+    except Exception as e:
+        logger.warning(f"[JOIN CHECK FAIL] Channel error: {e}")
+        return False
 def build_api_url(api_template: str, query: str) -> str:
     """
     Build API URL robustly.
@@ -93,36 +101,6 @@ def build_api_url(api_template: str, query: str) -> str:
     # If there is a trailing parameter-like char at end, just concat
     return f"{api_template}{query}"
 
-
-# ---------------------------
-# Join-check (MAIN + BACKUP only)
-# ---------------------------
-async def is_joined_all(bot, user_id: int) -> bool:
-    """
-    NEW: getChatMember ko completely hata diya.
-    Ab bot channel me ek silent message send karega to confirm access.
-    Yeh method 100% kaam karega even if Telegram API bug de.
-    """
-
-    async def check_channel(ch):
-        try:
-            # "." message send to test bot access
-            msg = await bot.send_message(
-                chat_id=ch,
-                text=".",
-                disable_notification=True
-            )
-            try:
-                await msg.delete()
-            except:
-                pass
-            return True
-        except Exception as e:
-            logger.warning(f"[JOIN CHECK FAIL] Channel: {ch} | {e}")
-            return False
-
-    ok_main = await check_channel(MAIN_CH)
-    ok_backup = await check_channel(BACK_CH)
 
     return ok_main and ok_backup
 # ---------------------------
