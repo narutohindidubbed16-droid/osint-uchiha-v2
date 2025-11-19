@@ -55,10 +55,7 @@ from utils import validate_input, clean_json
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
-
-# ---------------------------
 # FIX & NORMALIZE CHANNELS
-# ---------------------------
 def fix_channel(ch):
     if not ch:
         return None
@@ -69,11 +66,8 @@ def fix_channel(ch):
 MAIN_CH = fix_channel(MAIN_CHANNEL)
 BACK_CH = fix_channel(BACKUP_CHANNEL)
 
-
-# ---------------------------
-# REAL JOIN CHECK (WORKING)
-# ---------------------------
-:
+# REAL JOIN CHECK
+async def is_joined_all(bot, user_id: int) -> bool:
     ok_states = ("member", "administrator", "creator")
 
     try:
@@ -85,6 +79,7 @@ BACK_CH = fix_channel(BACKUP_CHANNEL)
     except Exception as e:
         logger.warning(f"[JOIN CHECK FAIL] Channel error: {e}")
         return False
+        
 def build_api_url(api_template: str, query: str) -> str:
     """
     Build API URL robustly.
@@ -102,7 +97,6 @@ def build_api_url(api_template: str, query: str) -> str:
     return f"{api_template}{query}"
 
 
-    return ok_main and ok_backup
 # ---------------------------
 # Subscription / Start screens
 # ---------------------------
