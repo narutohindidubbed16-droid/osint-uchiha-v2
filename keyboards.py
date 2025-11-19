@@ -1,31 +1,17 @@
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
 from config import MAIN_CHANNEL, BACKUP_CHANNEL, PRIVATE_CHANNEL
 
-
 # ===============================================================
 # 🔐 CHANNEL JOIN KEYBOARD  (Private = only button, NO check)
 # ===============================================================
-def join_channels_kb():
-    return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📢 JOIN DARK NAGI", url=PRIVATE_CHANNEL)],
-        [InlineKeyboardButton("📢 JOIN BACKUP", url=f"https://t.me/{BACKUP_CHANNEL.replace('@','')}")],
-        [InlineKeyboardButton("📢 JOIN AbdulBotZ", url=f"https://t.me/{MAIN_CHANNEL.replace('@','')}")],
-        [InlineKeyboardButton("✅ I HAVE JOINED ALL CHANNELS", callback_data="verify_join")]
-    ])
-
-
-# ===============================================================
-# 🏠 MAIN MENU (Premium OSINT Panel)
-# ===============================================================
-from config import MAIN_CHANNEL, BACKUP_CHANNEL, PRIVATE_CHANNEL
-
 def join_channels_kb():
     kb = [
         [InlineKeyboardButton("📢 JOIN MAIN", url=f"https://t.me/{MAIN_CHANNEL.replace('@','')}")],
         [InlineKeyboardButton("📢 JOIN BACKUP", url=f"https://t.me/{BACKUP_CHANNEL.replace('@','')}")],
     ]
 
-    if PRIVATE_CHANNEL:
+    # PRIVATE channel optional (no join check)
+    if PRIVATE_CHANNEL and PRIVATE_CHANNEL != "":
         kb.append([InlineKeyboardButton("📢 JOIN PRIVATE", url=f"https://t.me/{PRIVATE_CHANNEL.replace('@','')}")])
 
     kb.append([InlineKeyboardButton("✅ I HAVE JOINED ALL CHANNELS", callback_data="verify_join")])
