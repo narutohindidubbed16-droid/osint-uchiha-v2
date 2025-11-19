@@ -1,4 +1,4 @@
-print("LOADED NEW HANDLERS v69")
+print("HANDLERS UPDATED NEW REPO v1")
 import aiohttp
 import logging
 from telegram import Update
