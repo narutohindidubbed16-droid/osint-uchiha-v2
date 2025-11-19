@@ -234,15 +234,21 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     await q.answer()
 
     # verify join popup handled separately
-    if data == "verify_join":
-        return await verify_join(update, ctx)
-        
-    if data == "buy_credits":
+if data == "verify_join":
+    return await verify_join(update, ctx)
+
+# BUY CREDITS BUTTON
+if data == "buy_credits":
     return await send_buy_credits_post(user_id, ctx)
 
-    # Lookup options
-    if data == "lookup_options":
-        return await ctx.bot.send_message(user_id, "🔍 Select Lookup Type:", reply_markup=lookup_options_kb(), parse_mode="Markdown")
+# Lookup options
+if data == "lookup_options":
+    return await ctx.bot.send_message(
+        user_id,
+        "🔍 Select Lookup Type:",
+        reply_markup=lookup_options_kb(),
+        parse_mode="Markdown"
+    )
 
     # Main menu actions: my_balance, referral_menu, buy_credits etc.
     if data == "my_balance":
