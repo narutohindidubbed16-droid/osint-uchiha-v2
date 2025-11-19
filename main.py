@@ -15,7 +15,7 @@ from telegram.ext import (
 )
 
 # -----------------------------
-# Keep Alive (Render fix)
+# Keep Alive (Render/Railway fix)
 # -----------------------------
 try:
     from keep_alive import keep_alive
@@ -70,7 +70,7 @@ async def run_bot():
     )
 
     # -----------------------------
-    # REGISTER COMMAND HANDLERS
+    # COMMAND HANDLERS
     # -----------------------------
     app.add_handler(CommandHandler("start", start))
 
@@ -80,11 +80,18 @@ async def run_bot():
     app.add_handler(CommandHandler("removecredits", removecredits_cmd))
     app.add_handler(CommandHandler("userslist", userslist_cmd))
 
-    # CALLBACK BUTTONS
-    app.add_handler(CallbackQueryHandler(buttons))
+    # -----------------------------
+    # CALLBACK HANDLER (IMPORTANT ORDER)
+    # -----------------------------
+    # 1) verify_join MUST be ABOVE buttons
     app.add_handler(CallbackQueryHandler(verify_join, pattern="verify_join"))
 
+    # 2) buttons = fallback for all other callbacks
+    app.add_handler(CallbackQueryHandler(buttons))
+
+    # -----------------------------
     # TEXT LOOKUP HANDLER
+    # -----------------------------
     app.add_handler(
         MessageHandler(filters.TEXT & ~filters.COMMAND, process_text)
     )
@@ -99,7 +106,7 @@ async def run_bot():
         await app.updater.start_polling()
         logger.info("✅ BOT IS LIVE & POLLING…")
 
-        await asyncio.Future()   # Keep running forever
+        await asyncio.Future()   # keep running forever
 
     except Exception as e:
         logger.error(f"❌ BOT ERROR: {e}")
@@ -111,7 +118,7 @@ async def run_bot():
 
 
 # -----------------------------
-# MAIN ENTRY POINT
+# ENTRY POINT
 # -----------------------------
 if __name__ == "__main__":
 
