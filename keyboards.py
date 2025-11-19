@@ -1,26 +1,27 @@
 from telegram import InlineKeyboardMarkup, InlineKeyboardButton
-from config import MAIN_CHANNEL, BACKUP_CHANNEL
+from config import MAIN_CHANNEL, BACKUP_CHANNEL, PRIVATE_CHANNEL
 
-# --------------------------------
-# CHANNEL JOIN KEYBOARD
-# --------------------------------
+
+# ===============================================================
+# 🔐 CHANNEL JOIN KEYBOARD  (Private = only button, NO check)
+# ===============================================================
 def join_channels_kb():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("📢 JOIN DARK NAGI", url="https://t.me/+hyVTTQkfJS41NTFl")],
+        [InlineKeyboardButton("📢 JOIN DARK NAGI", url=PRIVATE_CHANNEL)],
         [InlineKeyboardButton("📢 JOIN BACKUP", url=f"https://t.me/{BACKUP_CHANNEL.replace('@','')}")],
-        [InlineKeyboardButton("📢 JOIN AbdulBotz", url=f"https://t.me/{MAIN_CHANNEL.replace('@','')}")],
+        [InlineKeyboardButton("📢 JOIN AbdulBotZ", url=f"https://t.me/{MAIN_CHANNEL.replace('@','')}")],
         [InlineKeyboardButton("✅ I HAVE JOINED ALL CHANNELS", callback_data="verify_join")]
     ])
 
 
-# --------------------------------
-# MAIN MENU (UPGRADED)
-# --------------------------------
+# ===============================================================
+# 🏠 MAIN MENU (Premium OSINT Panel)
+# ===============================================================
 def main_menu_kb():
     return InlineKeyboardMarkup([
         [
             InlineKeyboardButton("🔎 LOOKUPS", callback_data="lookup_options"),
-            InlineKeyboardButton("💳 MY BALANCE", callback_data="my_balance")
+            InlineKeyboardButton("💳 BALANCE", callback_data="my_balance")
         ],
         [
             InlineKeyboardButton("👥 EARN CREDITS", callback_data="referral_menu"),
@@ -33,9 +34,9 @@ def main_menu_kb():
     ])
 
 
-# --------------------------------
-# REFERRAL MENU
-# --------------------------------
+# ===============================================================
+# 👥 REFERRAL MENU
+# ===============================================================
 def referral_menu_kb(ref_link):
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("🔗 COPY REFERRAL LINK", url=ref_link)],
@@ -43,9 +44,9 @@ def referral_menu_kb(ref_link):
     ])
 
 
-# --------------------------------
-# BALANCE MENU
-# --------------------------------
+# ===============================================================
+# 💳 BALANCE PANEL
+# ===============================================================
 def balance_menu_kb():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("💰 BUY CREDITS", callback_data="buy_credits")],
@@ -54,9 +55,9 @@ def balance_menu_kb():
     ])
 
 
-# --------------------------------
-# BUY CREDITS PANEL
-# --------------------------------
+# ===============================================================
+# 💰 BUY CREDITS PANEL
+# ===============================================================
 def buy_credits_kb():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("₹49 = 25 Credits", callback_data="buy_25")],
@@ -67,30 +68,30 @@ def buy_credits_kb():
     ])
 
 
-# --------------------------------
-# LOOKUP OPTIONS
-# --------------------------------
+# ===============================================================
+# 🔍 LOOKUP OPTIONS
+# ===============================================================
 def lookup_options_kb():
     return InlineKeyboardMarkup([
         [
             InlineKeyboardButton("📱 MOBILE", callback_data="mobile_lookup"),
-            InlineKeyboardButton("🏢 GST", callback_data="gst_lookup"),
+            InlineKeyboardButton("🏢 GST", callback_data="gst_lookup")
         ],
         [
             InlineKeyboardButton("🏦 IFSC", callback_data="ifsc_lookup"),
-            InlineKeyboardButton("📮 PINCODE", callback_data="pincode_lookup"),
+            InlineKeyboardButton("📮 PINCODE", callback_data="pincode_lookup")
         ],
         [
             InlineKeyboardButton("🚗 VEHICLE", callback_data="vehicle_lookup"),
-            InlineKeyboardButton("🧾 IMEI", callback_data="imei_lookup") 
+            InlineKeyboardButton("🧾 IMEI", callback_data="imei_lookup")
         ],
         [InlineKeyboardButton("🔙 BACK", callback_data="back_home")]
     ])
 
 
-# --------------------------------
-# QUICK SEARCH BACK
-# --------------------------------
+# ===============================================================
+# 🔙 QUICK SEARCH BACK
+# ===============================================================
 def quick_back_kb():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("🔍 TRY NOW", callback_data="lookup_options")],
@@ -98,9 +99,9 @@ def quick_back_kb():
     ])
 
 
-# --------------------------------
-# INPUT BUTTON
-# --------------------------------
+# ===============================================================
+# ✏ ASK INPUT BUTTON
+# ===============================================================
 def ask_input_kb():
     return InlineKeyboardMarkup([
         [InlineKeyboardButton("🔙 BACK", callback_data="lookup_options")]
