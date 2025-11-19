@@ -73,6 +73,9 @@ def fix_channel(ch):
         ch = ch[1:]
 
     return ch
+# channel fix
+MAIN_CH = fix_channel(MAIN_CHANNEL)
+BACK_CH = fix_channel(BACKUP_CHANNEL)
 
 def build_api_url(api_template: str, query: str) -> str:
     """
