@@ -35,7 +35,8 @@ from handlers import (
     admin_panel,
     addcredits_cmd,
     removecredits_cmd,
-    userslist_cmd
+    userslist_cmd,
+    diag   # ⬅ ADD THIS LINE
 )
 
 
