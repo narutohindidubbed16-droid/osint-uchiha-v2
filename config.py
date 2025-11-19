@@ -7,17 +7,18 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 
 # ==============================
-# 📢 CHANNELS (USERNAME + ID SAFE)
+# 📢 CHANNELS (PUBLIC ONLY)
 # ==============================
 # IMPORTANT:
-# 1) Public channel → @username (NO https link)
-# 2) Private invite link → full link (https://t.me/+abc123)
-# 3) Backup channel → @username
-# 4) DO NOT use +hyVTT... as MAIN/BACKUP (invite link cannot be used for getChatMember)
+# ✔ MAIN_CHANNEL → sirf @username (NO link)
+# ✔ BACKUP_CHANNEL → sirf @username (NO link)
+# ❌ PRIVATE INVITE LINKS (https://t.me/+xxx) join-check me allowed nahi
 
 MAIN_CHANNEL = os.getenv("MAIN_CHANNEL")        # e.g., @AbdulBotz
 BACKUP_CHANNEL = os.getenv("BACKUP_CHANNEL")    # e.g., @darknagibackup
-PRIVATE_CHANNEL = os.getenv("PRIVATE_CHANNEL")  # e.g., https://t.me/+hyVTTQkFJS4lNTFl
+
+# PRIVATE CHANNEL USED ONLY FOR BUTTON DISPLAY (NO JOIN-CHECK)
+PRIVATE_CHANNEL = os.getenv("PRIVATE_CHANNEL")  # optional
 
 
 # ==============================
@@ -27,8 +28,9 @@ MOBILE_API = os.getenv("MOBILE_API")
 GST_API = os.getenv("GST_API")
 IFSC_API = os.getenv("IFSC_API")
 PINCODE_API = os.getenv("PINCODE_API")
-VEHICLE_API = os.getenv("VEHICLE_API")
-RC_API = os.getenv("RC_API")     # FIXED — Earlier mistake: it was VEHICLE_API
+
+# Correct mapping — RC = Vehicle lookup API
+RC_API = os.getenv("RC_API")  
 IMEI_API = os.getenv("IMEI_API")
 
 
