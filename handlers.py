@@ -273,27 +273,131 @@ if data == "lookup_options":
         )
         return await ctx.bot.send_message(user_id, help_text, reply_markup=quick_back_kb(), parse_mode="Markdown")
 
-    # If selecting a lookup mode
+async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    """
+    Central callback query handler for all inline buttons.
+    """
+    q = update.callback_query
+    data = q.data or ""
+    user_id = q.from_user.id
+
+    # always answer callback
+    await q.answer()
+
+    # --------------------------
+    # VERIFY JOIN
+    # --------------------------
+    if data == "verify_join":
+        return await verify_join(update, ctx)
+
+    # --------------------------
+    # BUY CREDITS
+    # --------------------------
+    if data == "buy_credits":
+        return await send_buy_credits_post(user_id, ctx)
+
+    # --------------------------
+    # LOOKUP OPTIONS
+    # --------------------------
+    if data == "lookup_options":
+        return await ctx.bot.send_message(
+            user_id,
+            "🔍 Select Lookup Type:",
+            reply_markup=lookup_options_kb(),
+            parse_mode="Markdown"
+        )
+
+    # --------------------------
+    # MY BALANCE
+    # --------------------------
+    if data == "my_balance":
+        credits = get_user_credits(user_id)
+        text = f"💳 Your balance: *{credits}* credits"
+        return await ctx.bot.send_message(
+            user_id, text,
+            parse_mode="Markdown",
+            reply_markup=balance_menu_kb()
+        )
+
+    # --------------------------
+    # REFERRAL MENU
+    # --------------------------
+    if data == "referral_menu":
+        ref_link = f"https://t.me/{fix_channel(MAIN_CHANNEL)}?start={user_id}"
+        return await ctx.bot.send_message(
+            user_id,
+            "Share your link to earn +1 credit:",
+            parse_mode="Markdown",
+            reply_markup=referral_menu_kb(ref_link)
+        )
+
+    # --------------------------
+    # SUPPORT
+    # --------------------------
+    if data == "support":
+        return await ctx.bot.send_message(
+            user_id,
+            "🛠 Support: @AbdulBotZ",
+            reply_markup=quick_back_kb(),
+            parse_mode="Markdown"
+        )
+
+    # --------------------------
+    # HELP GUIDE
+    # --------------------------
+    if data == "help_guide":
+        help_text = (
+            "📘 *HELP GUIDE*\n\n"
+            "`9876543210` → Mobile Lookup\n"
+            "`09AAYF1234N1Z2` → GST\n"
+            "`ICIC0001206` → IFSC\n"
+            "`110001` → Pincode\n"
+            "`MH12DE1433` → Vehicle\n"
+            "`123456789012345` → IMEI\n"
+        )
+        return await ctx.bot.send_message(
+            user_id, help_text,
+            parse_mode="Markdown",
+            reply_markup=quick_back_kb()
+        )
+
+    # --------------------------
+    # LOOKUP MODE SELECTION
+    # --------------------------
     lookup_map = {
-        "mobile_lookup": "📱 Enter Mobile Number (10 digits):",
-        "gst_lookup": "🏢 Enter GSTIN (15 chars):",
-        "ifsc_lookup": "🏦 Enter IFSC Code (11 chars):",
-        "pincode_lookup": "📮 Enter 6-digit Pincode:",
-        "vehicle_lookup": "🚗 Enter RC Number (e.g., MH12DE1433):",
-        "imei_lookup": "🧾 Enter 15-digit IMEI:"
+        "mobile_lookup": "📱 Enter Mobile Number:",
+        "gst_lookup": "🏢 Enter GSTIN:",
+        "ifsc_lookup": "🏦 Enter IFSC:",
+        "pincode_lookup": "📮 Enter Pincode:",
+        "vehicle_lookup": "🚗 Enter RC Number:",
+        "imei_lookup": "🧾 Enter IMEI:"
     }
 
     if data in lookup_map:
         ctx.user_data["mode"] = data
-        return await ctx.bot.send_message(user_id, lookup_map[data], reply_markup=ask_input_kb(), parse_mode="Markdown")
+        return await ctx.bot.send_message(
+            user_id,
+            lookup_map[data],
+            reply_markup=ask_input_kb(),
+            parse_mode="Markdown"
+        )
 
+    # --------------------------
+    # BACK TO HOME
+    # --------------------------
     if data == "back_home":
-        return await ctx.bot.send_message(user_id, "🏠 Main Menu:", reply_markup=main_menu_kb(), parse_mode="Markdown")
+        return await ctx.bot.send_message(
+            user_id,
+            "🏠 Main Menu:",
+            reply_markup=main_menu_kb(),
+            parse_mode="Markdown"
+        )
 
-    # Buy credits quick buttons (example callbacks)
+    # --------------------------
+    # BUY PACK BUTTONS (buy_25, buy_60, buy_150)
+    # --------------------------
     if data.startswith("buy_"):
-        # we keep payments manual — send instruction to pay & confirm
-        return await ctx.bot.send_message(user_id, "To buy credits: send payment proof to @LoserNagi and use the correct package button.", reply_markup=buy_credits_kb())
+        return await send_buy_credits_post(user_id, ctx) "To buy credits: send payment proof to @LoserNagi and use the correct package button.", reply_markup=buy_credits_kb())
         
 BUY_QR_IMAGE = "https://ibb.co/JFCG2ms9"   # <-- yaha apna QR image link daalna
 
