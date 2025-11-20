@@ -355,9 +355,9 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     )
 
          
-BUY_QR_IMAGE = "https://ibb.co/JFCG2ms9"   # <-- yaha apna QR image link daalna
+BUY_QR_IMAGE = "https://ibb.co/PGgs1SyC"   # <-- yaha apna QR image link daalna
 
-UPI_ID = "losernagi@upi"  # <-- apna UPI daalna
+UPI_ID = "faisal786786@fam"  # <-- apna UPI daalna
 
 async def send_buy_credits_post(user_id, ctx):
     text = (
