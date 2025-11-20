@@ -258,7 +258,6 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             reply_markup=balance_menu_kb()
         )
 
-    # referral menu
 if data == "referral_menu":
     BOT_USERNAME = "OsintUchihaProBot"   # <-- apna bot username, WITHOUT @
     ref_link = f"https://t.me/{BOT_USERNAME}?start={user_id}"
