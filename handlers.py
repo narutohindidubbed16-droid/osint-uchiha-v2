@@ -332,7 +332,7 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     # REFERRAL MENU
     # --------------------------
     if data == "referral_menu":
-    BOT_USERNAME = "OsintUchihaProBot"   # <-- bot username (without @)
+        BOT_USERNAME = "OsintUchihaProBot"   # without @
     ref_link = f"https://t.me/{BOT_USERNAME}?start={user_id}"
     return await ctx.bot.send_message(
         user_id,
