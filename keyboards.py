@@ -38,7 +38,7 @@ def main_menu_kb():
 # ===============================================================
 def referral_menu_kb(ref_link):
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("🔗 COPY REFERRAL LINK", url=ref_link)],
+        [InlineKeyboardButton("📥 TAP & HOLD TO COPY LINK", url=ref_link)],
         [InlineKeyboardButton("🔙 BACK", callback_data="back_home")]
     ])
 
