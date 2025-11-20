@@ -221,27 +221,33 @@ async def verify_join(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
         reply_markup=main_menu_kb()
     )
 
+# ---------------------------
+# BUTTONS HANDLER — FINAL CLEAN VERSION
+# ---------------------------
 
-# ---------------------------
-# BUTTONS / Callback handler
-# ---------------------------
 async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     q = update.callback_query
     data = q.data or ""
     user_id = q.from_user.id
 
-    # Always answer callback to remove "loading"
+    # Always answer callback to remove loading circle
     await q.answer()
 
-    # verify join
+    # ---------------------------
+    # VERIFY JOIN
+    # ---------------------------
     if data == "verify_join":
         return await verify_join(update, ctx)
 
-    # buy credits
+    # ---------------------------
+    # BUY CREDITS
+    # ---------------------------
     if data == "buy_credits":
         return await send_buy_credits_post(user_id, ctx)
 
-    # Lookup options
+    # ---------------------------
+    # LOOKUP OPTIONS
+    # ---------------------------
     if data == "lookup_options":
         return await ctx.bot.send_message(
             user_id,
@@ -250,26 +256,45 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
+    # ---------------------------
+    # MY BALANCE
+    # ---------------------------
     if data == "my_balance":
         credits = get_user_credits(user_id)
-        txt = f"💳 Your balance: *{credits}* credits"
+        text = f"💳 Your balance: *{credits}* credits"
         return await ctx.bot.send_message(
-            user_id, txt, parse_mode="Markdown",
+            user_id,
+            text,
+            parse_mode="Markdown",
             reply_markup=balance_menu_kb()
         )
 
-if data == "referral_menu":
-    BOT_USERNAME = "OsintUchihaProBot"   # without @
-    ref_link = f"https://t.me/{BOT_USERNAME}?start={user_id}"
-    return await ctx.bot.send_message(
-        user_id,
-        "Share your referral link to earn +1 credit per sign-up:",
-        reply_markup=referral_menu_kb(ref_link)
-    )
-    
-    if data == "support":
-        return await ctx.bot.send_message(user_id, "🛠 Support: @AbdulBotZ", reply_markup=quick_back_kb(), parse_mode="Markdown")
+    # ---------------------------
+    # REFERRAL MENU
+    # ---------------------------
+    if data == "referral_menu":
+        BOT_USERNAME = "OsintUchihaProBot"   # <-- WITHOUT @
+        ref_link = f"https://t.me/{BOT_USERNAME}?start={user_id}"
+        return await ctx.bot.send_message(
+            user_id,
+            "Share your referral link to earn +1 credit per sign-up:",
+            reply_markup=referral_menu_kb(ref_link)
+        )
 
+    # ---------------------------
+    # SUPPORT
+    # ---------------------------
+    if data == "support":
+        return await ctx.bot.send_message(
+            user_id,
+            "🛠 Support: @AbdulBotZ",
+            reply_markup=quick_back_kb(),
+            parse_mode="Markdown"
+        )
+
+    # ---------------------------
+    # HELP GUIDE
+    # ---------------------------
     if data == "help_guide":
         help_text = (
             "📘 *HELP GUIDE*\n\n"
@@ -280,106 +305,23 @@ if data == "referral_menu":
             "`MH12DE1433` → Vehicle RC\n"
             "`123456789012345` → IMEI Lookup\n"
         )
-        return await ctx.bot.send_message(user_id, help_text, reply_markup=quick_back_kb(), parse_mode="Markdown")
-
-async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
-    """
-    Central callback query handler for all inline buttons.
-    """
-    q = update.callback_query
-    data = q.data or ""
-    user_id = q.from_user.id
-
-    # always answer callback
-    await q.answer()
-
-    # --------------------------
-    # VERIFY JOIN
-    # --------------------------
-    if data == "verify_join":
-        return await verify_join(update, ctx)
-
-    # --------------------------
-    # BUY CREDITS
-    # --------------------------
-    if data == "buy_credits":
-        return await send_buy_credits_post(user_id, ctx)
-
-    # --------------------------
-    # LOOKUP OPTIONS
-    # --------------------------
-    if data == "lookup_options":
         return await ctx.bot.send_message(
             user_id,
-            "🔍 Select Lookup Type:",
-            reply_markup=lookup_options_kb(),
-            parse_mode="Markdown"
-        )
-
-    # --------------------------
-    # MY BALANCE
-    # --------------------------
-    if data == "my_balance":
-        credits = get_user_credits(user_id)
-        text = f"💳 Your balance: *{credits}* credits"
-        return await ctx.bot.send_message(
-            user_id, text,
-            parse_mode="Markdown",
-            reply_markup=balance_menu_kb()
-        )
-
-    # --------------------------
-    # REFERRAL MENU
-    # --------------------------
-    if data == "referral_menu":
-        BOT_USERNAME = "OsintUchihaProBot"   # without @
-    ref_link = f"https://t.me/{BOT_USERNAME}?start={user_id}"
-    return await ctx.bot.send_message(
-        user_id,
-        "Share your referral link to earn +1 credit per sign-up:",
-        reply_markup=referral_menu_kb(ref_link)
-    )
-
-    # --------------------------
-    # SUPPORT
-    # --------------------------
-    if data == "support":
-        return await ctx.bot.send_message(
-            user_id,
-            "🛠 Support: @AbdulBotZ",
+            help_text,
             reply_markup=quick_back_kb(),
             parse_mode="Markdown"
         )
 
-    # --------------------------
-    # HELP GUIDE
-    # --------------------------
-    if data == "help_guide":
-        help_text = (
-            "📘 *HELP GUIDE*\n\n"
-            "`9876543210` → Mobile Lookup\n"
-            "`09AAYF1234N1Z2` → GST\n"
-            "`ICIC0001206` → IFSC\n"
-            "`110001` → Pincode\n"
-            "`MH12DE1433` → Vehicle\n"
-            "`123456789012345` → IMEI\n"
-        )
-        return await ctx.bot.send_message(
-            user_id, help_text,
-            parse_mode="Markdown",
-            reply_markup=quick_back_kb()
-        )
-
-    # --------------------------
-    # LOOKUP MODE SELECTION
-    # --------------------------
+    # ---------------------------
+    # LOOKUP MODE SELECTIONS
+    # ---------------------------
     lookup_map = {
-        "mobile_lookup": "📱 Enter Mobile Number:",
-        "gst_lookup": "🏢 Enter GSTIN:",
-        "ifsc_lookup": "🏦 Enter IFSC:",
-        "pincode_lookup": "📮 Enter Pincode:",
-        "vehicle_lookup": "🚗 Enter RC Number:",
-        "imei_lookup": "🧾 Enter IMEI:"
+        "mobile_lookup": "📱 Enter Mobile Number (10 digits):",
+        "gst_lookup": "🏢 Enter GSTIN (15 chars):",
+        "ifsc_lookup": "🏦 Enter IFSC Code (11 chars):",
+        "pincode_lookup": "📮 Enter 6-digit Pincode:",
+        "vehicle_lookup": "🚗 Enter RC Number (e.g., MH12DE1433):",
+        "imei_lookup": "🧾 Enter 15-digit IMEI:"
     }
 
     if data in lookup_map:
@@ -391,9 +333,9 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
-    # --------------------------
+    # ---------------------------
     # BACK TO HOME
-    # --------------------------
+    # ---------------------------
     if data == "back_home":
         return await ctx.bot.send_message(
             user_id,
@@ -402,11 +344,17 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
-    # --------------------------
-    # BUY PACK BUTTONS (buy_25, buy_60, buy_150)
-    # --------------------------
+    # ---------------------------
+    # BUY CREDIT PACK BUTTONS
+    # ---------------------------
     if data.startswith("buy_"):
-        return await send_buy_credits_post(user_id, ctx)         
+        return await ctx.bot.send_message(
+            user_id,
+            "To buy credits: send payment proof to @LoserNagi and use the correct package button.",
+            reply_markup=buy_credits_kb()
+    )
+
+         
 BUY_QR_IMAGE = "https://ibb.co/JFCG2ms9"   # <-- yaha apna QR image link daalna
 
 UPI_ID = "losernagi@upi"  # <-- apna UPI daalna
