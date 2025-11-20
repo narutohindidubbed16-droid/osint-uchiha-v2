@@ -103,29 +103,38 @@ def build_api_url(api_template: str, query: str) -> str:
 
 SUBS_TEXT = (
     "┌────────────────────────────────┐\n"
-    "│      🔒  SUBSCRIPTION REQUIRED      │\n"
+    "│        🔒  𝙎𝙐𝘽𝙎𝘾𝙍𝙄𝙋𝙏𝙄𝙊𝙉 𝙍𝙀𝙌𝙐𝙄𝙍𝙀𝘿        │\n"
     "└────────────────────────────────┘\n\n"
-    "📢 CHANNEL SUBSCRIPTION REQUIRED\n\n"
-    "To access *OSINT Uchiha Bot* you must join our official channels:\n\n"
+    "📢 𝘾𝙃𝘼𝙉𝙉𝙀𝙇 𝙎𝙐𝘽𝙎𝘾𝙍𝙄𝙋𝙏𝙄𝙊𝙉 𝙍𝙀𝙌𝙐𝙄𝙍𝙀𝘿\n\n"
+    "To access *OSINT Uchiha Bot*, you must join our official channels:\n\n"
     "• Updates — @UpdateBotZNagi\n"
     "• BotHub — @AbdulBotZ\n\n"
-    "👉 Steps:\n"
+    "👉 𝙎𝙏𝙀𝙋𝙎:\n"
     "1️⃣ Join all channels using the buttons below\n"
     "2️⃣ Tap *I HAVE JOINED ALL CHANNELS*\n"
     "3️⃣ Start using the bot\n"
 )
 
-WELCOME_IMAGE = "https://i.ibb.co/xGGxX99/uchiha-welcome.jpg"
+WELCOME_IMAGE = "https://ibb.co/B5fQwTM6"
 WELCOME_TEXT = (
-    "🔥 *OSINT Uchiha — Dark Intel Clan* 🔥\n\n"
-    "👁️ *Mangekyo Multi-Scan Engine Activated*\n\n"
-    "⚡ Mobile OSINT\n"
-    "⚡ GST Lookup\n"
-    "⚡ IFSC / Bank Info\n"
-    "⚡ Pincode / Address\n"
-    "⚡ Vehicle Details\n"
-    "⚡ IMEI Tracking\n\n"
-    "Welcome to the most powerful dark-intel engine."
+    "╔═══ ◎ ᴍᴀɴɢᴇᴋʏᴏ ᴅᴀᴛᴀ ꜱᴄᴀɴ ᴇɴɢɪɴᴇ ◎\n"
+    "║ ᴅᴇᴇᴘ ᴡᴇʙ • ᴅᴀʀᴋ ᴛʀᴀɪʟꜱ • ʀᴇᴀʟ-ᴛɪᴍᴇ ɪɴᴛᴇʟ\n"
+    "╚═══════════════════════\n\n"
+
+    "👁️ ꜱʜᴀʀɪɴɢᴀɴ ꜰᴇᴀᴛᴜʀᴇ ᴜɴʟᴏᴄᴋᴇᴅ\n"
+    "⚡ ᴀᴀᴅʜᴀʀ ᴅᴀᴛᴀ ᴘᴜʟʟ\n"
+    "⚡ ɢꜱᴛ ʀᴇɢɪꜱᴛʀᴀᴛɪᴏɴ ꜱᴄᴀɴ\n"
+    "⚡ ɪꜰꜱᴄ ᴅᴇᴄᴏᴅᴇ\n"
+    "⚡ ᴘɪɴᴄᴏᴅᴇ / ᴘᴏꜱᴛᴀʟ ᴛʀᴀᴄᴇ\n"
+    "⚡ ᴠᴇʜɪᴄʟᴇ ʀᴇᴄᴏʀᴅ ꜱᴄᴀɴ\n\n"
+
+    "🔥 ᴏᴘᴇʀᴀᴛɪɴɢ ɪɴ ᴜᴄʜɪʜᴀ ᴍᴏᴅᴇ…\n"
+    "ᴏɴᴇ ᴛᴀᴘ → ᴅᴀᴛᴀ ᴜɴʀᴀᴠᴇʟꜱ\n"
+    "ᴏɴᴇ ʟᴏᴏᴋ → ɪɴꜰᴏ ᴇxᴘᴏꜱᴇᴅ\n"
+    "ᴏɴᴇ ᴄᴏᴍᴍᴀɴᴅ → ᴄʟᴀɴ ᴘᴏᴡᴇʀ ᴜɴʟᴇᴀꜱʜᴇᴅ\n\n"
+
+    "🕶️ ᴜꜱᴇ ᴛʜᴇ ʙᴜᴛᴛᴏɴꜱ ᴛᴏ ᴀᴡᴀᴋᴇɴ ᴛʜᴇ ꜱʜᴀʀɪɴɢᴀɴ\n"
+    "ʀᴇᴀʟ-ᴛɪᴍᴇ ɪɴᴛᴇʟ. ᴅᴀʀᴋ ᴛʀᴀᴄᴋɪɴɢ. ᴜᴄʜɪʜᴀ ꜱᴛʏʟᴇ.\n"
 )
 
 
