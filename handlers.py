@@ -138,7 +138,7 @@ WELCOME_TEXT = (
 )
 
 
-WELCOME_IMAGE = "https://i.ibb.co/xGGxX99/uchiha-welcome.jpg"
+WELCOME_IMAGE = "https://ibb.co/B5fQwTM6"
 
 async def show_welcome(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
