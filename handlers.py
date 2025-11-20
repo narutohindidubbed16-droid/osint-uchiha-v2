@@ -258,13 +258,15 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
             reply_markup=balance_menu_kb()
         )
 
-    if data == "referral_menu":
-        ref_link = f"https://t.me/{fix_channel(MAIN_CHANNEL)}?start={user_id}"
-        return await ctx.bot.send_message(
-            user_id,
-            "Share your referral link:",
-            reply_markup=referral_menu_kb(ref_link)
-        )
+    # referral menu
+if data == "referral_menu":
+    BOT_USERNAME = "OsintUchihaProBot"   # <-- apna bot username, WITHOUT @
+    ref_link = f"https://t.me/{BOT_USERNAME}?start={user_id}"
+    return await ctx.bot.send_message(
+        user_id,
+        "Share your referral link to earn +1 credit per sign-up:",
+        reply_markup=referral_menu_kb(ref_link)
+    )
     
     if data == "support":
         return await ctx.bot.send_message(user_id, "🛠 Support: @AbdulBotZ", reply_markup=quick_back_kb(), parse_mode="Markdown")
