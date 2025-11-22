@@ -62,7 +62,7 @@ def buy_credits_kb():
         [InlineKeyboardButton("₹49 = 25 Credits", callback_data="buy_25")],
         [InlineKeyboardButton("₹99 = 60 Credits", callback_data="buy_60")],
         [InlineKeyboardButton("₹199 = 150 Credits", callback_data="buy_150")],
-        [InlineKeyboardButton("📩 Pay & Send Screenshot", url="https://t.me/LoserNagi")],
+        [InlineKeyboardButton("📩 Pay & Send Screenshot", url="https://t.me/LoserNagiOfficial")],
         [InlineKeyboardButton("🔙 BACK", callback_data="back_home")]
     ])
 
