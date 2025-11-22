@@ -26,8 +26,8 @@ from config import (
     PINCODE_API,
     RC_API,
     IMEI_API,
+    AADHAAR_API,
     ADMIN_ID
-    AADHAAR_API
 )
 
 from keyboards import (
