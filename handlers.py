@@ -108,8 +108,8 @@ SUBS_TEXT = (
     "└────────────────────────────────┘\n\n"
     "📢 𝘾𝙃𝘼𝙉𝙉𝙀𝙇 𝙎𝙐𝘽𝙎𝘾𝙍𝙄𝙋𝙏𝙄𝙊𝙉 𝙍𝙀𝙌𝙐𝙄𝙍𝙀𝘿\n\n"
     "To access *OSINT Uchiha Bot*, you must join our official channels:\n\n"
-    "• Updates — @UpdateBotZNagi\n"
-    "• BotHub — @AbdulBotZ\n\n"
+    "• Updates — @AbdulBotMakingTips\n"
+    "• BotHub — @AbdulBotzOfficial\n\n"
     "👉 𝙎𝙏𝙀𝙋𝙎:\n"
     "1️⃣ Join all channels using the buttons below\n"
     "2️⃣ Tap *I HAVE JOINED ALL CHANNELS*\n"
@@ -288,7 +288,7 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     if data == "support":
         return await ctx.bot.send_message(
             user_id,
-            "🛠 Support: @AbdulBotZ",
+            "🛠 Support: @LoserNagiOfficial",
             reply_markup=quick_back_kb(),
             parse_mode="Markdown"
         )
@@ -367,7 +367,7 @@ async def send_buy_credits_post(user_id, ctx):
         "📌 Below is the payment QR. Scan & pay.\n\n"
         "⚠ If QR fails, use UPI ID below:\n"
         f"➡ *{UPI_ID}*\n\n"
-        "📄 After payment, send screenshot to: @LoserNagi\n\n"
+        "📄 After payment, send screenshot to: @LoserNagiOfficial\n\n"
         "💠 Available Packs:\n"
         "• ₹49 → 25 Credits\n"
         "• ₹99 → 60 Credits\n"
