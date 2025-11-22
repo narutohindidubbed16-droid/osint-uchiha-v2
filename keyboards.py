@@ -77,10 +77,14 @@ def lookup_options_kb():
             InlineKeyboardButton("🏢 GST", callback_data="gst_lookup")
         ],
         [
+    InlineKeyboardButton("🆔 AADHAAR", callback_data="aadhaar_lookup")
+],
+        [
             InlineKeyboardButton("🏦 IFSC", callback_data="ifsc_lookup"),
             InlineKeyboardButton("📮 PINCODE", callback_data="pincode_lookup")
         ],
         [
+        
             InlineKeyboardButton("🚗 VEHICLE", callback_data="vehicle_lookup"),
             InlineKeyboardButton("🧾 IMEI", callback_data="imei_lookup")
         ],
