@@ -28,7 +28,7 @@ MOBILE_API = os.getenv("MOBILE_API")
 GST_API = os.getenv("GST_API")
 IFSC_API = os.getenv("IFSC_API")
 PINCODE_API = os.getenv("PINCODE_API")
-
+AADHAAR_API = os.getenv("AADHAAR_API")
 # Correct mapping — RC = Vehicle lookup API
 RC_API = os.getenv("RC_API")  
 IMEI_API = os.getenv("IMEI_API")
