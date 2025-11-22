@@ -4,3 +4,4 @@ Flask==3.0.0
 nest-asyncio==1.6.0
 waitress==2.1.2
 pymongo[srv]
+dnspython
