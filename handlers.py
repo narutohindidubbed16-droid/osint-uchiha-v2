@@ -27,6 +27,7 @@ from config import (
     RC_API,
     IMEI_API,
     ADMIN_ID
+    AADHAAR_API
 )
 
 from keyboards import (
@@ -316,12 +317,13 @@ async def buttons(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
     # LOOKUP MODE SELECTIONS
     # ---------------------------
     lookup_map = {
-        "mobile_lookup": "📱 Enter Mobile Number (10 digits):",
-        "gst_lookup": "🏢 Enter GSTIN (15 chars):",
-        "ifsc_lookup": "🏦 Enter IFSC Code (11 chars):",
-        "pincode_lookup": "📮 Enter 6-digit Pincode:",
-        "vehicle_lookup": "🚗 Enter RC Number (e.g., MH12DE1433):",
-        "imei_lookup": "🧾 Enter 15-digit IMEI:"
+    "mobile_lookup": "📱 Enter Mobile Number (10 digits):",
+    "gst_lookup": "🏢 Enter GSTIN (15 chars):",
+    "ifsc_lookup": "🏦 Enter IFSC Code (11 chars):",
+    "pincode_lookup": "📮 Enter 6-digit Pincode:",
+    "vehicle_lookup": "🚗 Enter RC Number (e.g., MH12DE1433):",
+    "aadhaar_lookup": "🆔 Enter Aadhaar Number (12 digits):",
+    "imei_lookup": "🧾 Enter 15-digit IMEI:"
     }
 
     if data in lookup_map:
@@ -443,12 +445,13 @@ async def process_text(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 
     # build API url
     api_map = {
-        "mobile_lookup": MOBILE_API,
-        "gst_lookup": GST_API,
-        "ifsc_lookup": IFSC_API,
-        "pincode_lookup": PINCODE_API,
-        "vehicle_lookup": RC_API,
-        "imei_lookup": IMEI_API
+    "mobile_lookup": MOBILE_API,
+    "gst_lookup": GST_API,
+    "ifsc_lookup": IFSC_API,
+    "pincode_lookup": PINCODE_API,
+    "vehicle_lookup": RC_API,
+    "aadhaar_lookup": AADHAAR_API,
+    "imei_lookup": IMEI_API
     }
 
     api_template = api_map.get(mode)
